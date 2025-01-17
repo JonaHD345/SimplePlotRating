@@ -1,4 +1,4 @@
-package de.jonahd345.simplePlotRating;
+package de.jonahd345.simpleplotrating;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
