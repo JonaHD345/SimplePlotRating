@@ -12,7 +12,6 @@ public enum RatingMaterial {
 
     @Getter
     private final Material material;
-
     @Getter
     private final int weight;
 
