@@ -11,7 +11,6 @@ public class LocationConverter {
      * @return the equivalent Bukkit Location, or null if the world is not found
      */
     public static org.bukkit.Location toBukkitLocation(Location plotSquaredLocation) {
-        // Use LocationFetcher to get world information
         String worldName = plotSquaredLocation.getWorldName();
 
         // Fetch the Bukkit world
