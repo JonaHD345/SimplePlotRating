@@ -3,6 +3,7 @@ package de.jonahd345.simpleplotrating.model;
 import lombok.Getter;
 import org.bukkit.Material;
 
+@Getter
 public enum RatingMaterial {
     DRAGON_EGG(Material.DRAGON_EGG, 25),
     BEACON(Material.BEACON, 20),
@@ -10,9 +11,7 @@ public enum RatingMaterial {
     IRON_BLOCK(Material.IRON_BLOCK, 10),
     DIRT(Material.DIRT, 5);
 
-    @Getter
     private final Material material;
-    @Getter
     private final int weight;
 
     RatingMaterial(Material material, int weight) {
