@@ -6,7 +6,7 @@ authors: [ JonaHD345 ]
 website: https://jonahd345.de
 
 commands:
-  plotrate:
+  plotrating:
     aliases:
       - pr
       - prate
