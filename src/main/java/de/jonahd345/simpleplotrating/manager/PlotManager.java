@@ -25,16 +25,22 @@ public class PlotManager {
     public void setPlotRating(Location entrance, int rating, Player player) {
         List<Material> blocks = calculateBlocks(rating);
 
-        Location center = entrance.clone().add(6, 0, 1); // 4 Blöcke vom Eingang entfernt
+        Location center = entrance.clone().add(6, 0, 1);
         World world = center.getWorld();
 
-        // set blocks
-        if (world != null && blocks.size() == 3) {
-            world.getBlockAt(center.clone().add(-1, 0, 0)).setType(blocks.get(0));
-            world.getBlockAt(center).setType(blocks.get(1));
-            world.getBlockAt(center.clone().add(1, 0, 0)).setType(blocks.get(2));
-            // place sign
-            placeRatingSign(center, rating, player);
+        if (world != null) {
+            // make sure that nothing has been set on the block
+            while (world.getBlockAt(center).getType() != Material.AIR) {
+                center.add(0, 0, 1);
+            }
+            // set blocks
+            if (blocks.size() == 3) {
+                world.getBlockAt(center.clone().add(-1, 0, 0)).setType(blocks.get(0));
+                world.getBlockAt(center).setType(blocks.get(1));
+                world.getBlockAt(center.clone().add(1, 0, 0)).setType(blocks.get(2));
+                // place sign
+                placeRatingSign(center, rating, player);
+            }
         }
     }
 
