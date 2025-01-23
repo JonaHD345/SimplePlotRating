@@ -18,4 +18,13 @@ public enum RatingMaterial {
         this.material = material;
         this.weight = weight;
     }
+
+    public static RatingMaterial findBestMaterial(int rating) {
+        for (RatingMaterial ratingMaterial : values()) {
+            if (rating >= ratingMaterial.getWeight()) {
+                return ratingMaterial;
+            }
+        }
+        return DIRT;
+    }
 }
