@@ -14,10 +14,10 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
 
-public class PlotRateCommand implements CommandExecutor {
+public class PlotRatingCommand implements CommandExecutor {
     private SimplePlotRating plugin;
 
-    public PlotRateCommand(SimplePlotRating plugin) {
+    public PlotRatingCommand(SimplePlotRating plugin) {
         this.plugin = plugin;
     }
 
@@ -41,10 +41,6 @@ public class PlotRateCommand implements CommandExecutor {
             return true;
         }
 
-        if (args.length != 1) {
-            player.sendMessage("");
-            return true;
-        }
         RatingGui ratingGui = new RatingGui(this.plugin);
 
         ratingGui.showGui(player);
