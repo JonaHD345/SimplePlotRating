@@ -3,6 +3,7 @@ version: '1.0'
 main: de.jonahd345.simpleplotrating.SimplePlotRating
 api-version: '1.21'
 authors: [ JonaHD345 ]
+website: https://jonahd345.de
 
 commands:
   plotrate:
