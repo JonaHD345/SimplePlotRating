@@ -6,7 +6,7 @@ import dev.triumphteam.gui.guis.Gui;
 import lombok.Getter;
 import org.bukkit.entity.Player;
 
-public class RatingCategoryGui {
+public class RatingGui {
     private SimplePlotRating plugin;
 
     private Gui gui;
@@ -14,7 +14,7 @@ public class RatingCategoryGui {
     @Getter
     private int rating;
 
-    public RatingCategoryGui(SimplePlotRating plugin) {
+    public RatingGui(SimplePlotRating plugin) {
         this.plugin = plugin;
     }
 
