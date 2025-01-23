@@ -3,3 +3,11 @@ version: '1.0'
 main: de.jonahd345.simpleplotrating.SimplePlotRating
 api-version: '1.21'
 authors: [ JonaHD345 ]
+
+commands:
+  plotrate:
+    aliases:
+      - pr
+      - prate
+      - prating
+      - plotrating
