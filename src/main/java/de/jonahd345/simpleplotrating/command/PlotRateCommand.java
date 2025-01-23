@@ -4,6 +4,7 @@ import com.plotsquared.core.location.Location;
 import com.plotsquared.core.player.PlotPlayer;
 import com.plotsquared.core.plot.Plot;
 import de.jonahd345.simpleplotrating.SimplePlotRating;
+import de.jonahd345.simpleplotrating.gui.RatingGui;
 import de.jonahd345.simpleplotrating.util.LocationConverter;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -44,14 +45,14 @@ public class PlotRateCommand implements CommandExecutor {
             player.sendMessage("");
             return true;
         }
-        int rating = Integer.parseInt(args[0]);
+        RatingGui ratingGui = new RatingGui(this.plugin);
+
+        ratingGui.showGui(player);
+        int rating = ratingGui.getRating();
 
         if (rating < 0 || rating > 25) {
-            player.sendMessage("");
             return true;
         }
-        player.sendMessage("");
-
         CompletableFuture<Location> future = new CompletableFuture<>();
 
         plot.getDefaultHome(future::complete);
@@ -62,6 +63,7 @@ public class PlotRateCommand implements CommandExecutor {
         } else {
             player.sendMessage("");
         }
+        player.sendMessage("");
         return true;
     }
 }
