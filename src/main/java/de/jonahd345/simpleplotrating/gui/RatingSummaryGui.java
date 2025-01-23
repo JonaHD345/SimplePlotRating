@@ -50,6 +50,7 @@ public class RatingSummaryGui {
                 }));
 
         this.gui.getFiller().fill(ItemBuilder.from(Material.BLACK_STAINED_GLASS_PANE).name(Component.text("")).asGuiItem());
+        this.gui.setDefaultClickAction(event -> event.setCancelled(true));
 
         this.gui.open(this.player);
     }
