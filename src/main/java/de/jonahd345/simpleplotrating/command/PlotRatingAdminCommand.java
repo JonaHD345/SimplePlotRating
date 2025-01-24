@@ -12,13 +12,34 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class handles the /plotratingadmin command and its tab completion.
+ * It implements CommandExecutor to handle command execution and TabCompleter to provide tab completion suggestions.
+ */
 public class PlotRatingAdminCommand implements CommandExecutor, TabCompleter {
+    /**
+     * Instance of the SimplePlotRating
+     */
     private SimplePlotRating plugin;
 
+    /**
+     * Constructor to initialize the plugin instance.
+     *
+     * @param plugin the SimplePlotRating plugin instance
+     */
     public PlotRatingAdminCommand(SimplePlotRating plugin) {
         this.plugin = plugin;
     }
 
+    /**
+     * Handles the execution of the /plotratingadmin command.
+     *
+     * @param sender  the sender of the command
+     * @param command the command that was executed
+     * @param s       the alias of the command
+     * @param args    the arguments passed to the command
+     * @return true if the command was handled successfully, false otherwise
+     */
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if (!(sender.hasPermission("simpleplotrating.command.plotratingadmin"))) {
@@ -36,6 +57,15 @@ public class PlotRatingAdminCommand implements CommandExecutor, TabCompleter {
         return false;
     }
 
+    /**
+     * Provides tab completion suggestions for the /plotratingadmin command.
+     *
+     * @param sender  the sender of the command
+     * @param command the command that was executed
+     * @param s       the alias of the command
+     * @param args    the arguments passed to the command
+     * @return a list of tab completion suggestions
+     */
     @Override
     public @Nullable List<String> onTabComplete(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         List<String> subcommand = new ArrayList<>();
