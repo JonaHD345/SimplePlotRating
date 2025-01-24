@@ -9,6 +9,8 @@ import net.kyori.adventure.text.Component;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
+import java.util.Arrays;
+
 public class RatingGui {
     private SimplePlotRating plugin;
 
@@ -61,14 +63,16 @@ public class RatingGui {
     }
 
     private void nextCategory() {
+        RatingCategory[] ratingCategories = RatingCategory.values();
+
         if (this.currentCategory != null) {
-            this.currentCategory = this.plugin.getRatingCategories().get(this.plugin.getRatingCategories().indexOf(this.currentCategory) + 1);
+            this.currentCategory = ratingCategories[Arrays.asList(ratingCategories).indexOf(this.currentCategory) + 1];
         } else {
-            this.currentCategory = this.plugin.getRatingCategories().getFirst();
+            this.currentCategory = ratingCategories[0];
         }
         this.currentRating = 0;
         this.resetRating();
-        this.gui.updateItem(13, ItemBuilder.from(this.currentCategory.getMaterial()).name(Component.text(this.currentCategory.getName())).asGuiItem());
+        this.gui.updateItem(13, ItemBuilder.from(this.currentCategory.getMaterial()).name(Component.text(this.currentCategory.getGuiText().getText())).asGuiItem());
         if (this.currentCategory.isLastOne()) {
             this.gui.updateItem(51, ItemBuilder.from(Material.ARROW).name(Component.text(""))
                     .asGuiItem(event -> {

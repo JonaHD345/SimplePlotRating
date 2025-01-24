@@ -7,11 +7,9 @@ import de.jonahd345.simpleplotrating.service.GuiTextService;
 import de.jonahd345.simpleplotrating.service.MessageService;
 import de.jonahd345.simpleplotrating.util.Metrics;
 import lombok.Getter;
-import org.bukkit.Material;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.List;
 
 public final class SimplePlotRating extends JavaPlugin {
     @Getter
@@ -23,9 +21,6 @@ public final class SimplePlotRating extends JavaPlugin {
     @Getter
     private PlotRatingManager plotRatingManager;
 
-    @Getter
-    private List<RatingCategory> ratingCategories;
-
     @Override
     public void onEnable() {
        Metrics metrics = new Metrics(this, 24480);
@@ -36,10 +31,6 @@ public final class SimplePlotRating extends JavaPlugin {
        this.guiTextService.loadTexts();
 
        this.plotRatingManager = new PlotRatingManager();
-
-        this.ratingCategories = List.of(new RatingCategory("", Material.IRON_DOOR),new RatingCategory("", Material.CRAFTING_TABLE),
-                new RatingCategory("", Material.DANDELION), new RatingCategory("", Material.NETHER_STAR),
-                new RatingCategory("", Material.COMMAND_BLOCK, true));
 
        this.init();
     }

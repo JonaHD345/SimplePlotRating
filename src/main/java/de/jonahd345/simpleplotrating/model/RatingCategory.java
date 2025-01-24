@@ -1,27 +1,28 @@
 package de.jonahd345.simpleplotrating.model;
 
 import lombok.Getter;
+import lombok.Setter;
 import org.bukkit.Material;
 
 @Getter
-public class RatingCategory {
-    /*CELLAR("Keller", Material.IRON_DOOR),
-    INTERIOR_DESIGN("Inneneinrichtung", Material.CRAFTING_TABLE),
-    GARDEN("Garten", Material.DANDELION),
-    EXTERIOR_VIEW("Außenansicht", Material.DANDELION),
-    CREATIVITY("Kreativität", Material.COMMAND_BLOCK, true);*/
+public enum RatingCategory {
+    CELLAR(GuiText.RATING_CATEGORY_CELLAR, Material.IRON_DOOR),
+    INTERIOR_DESIGN(GuiText.RATING_CATEGORY_INTERIOR_DESIGN, Material.CRAFTING_TABLE),
+    GARDEN(GuiText.RATING_CATEGORY_GARDEN, Material.DANDELION),
+    EXTERIOR_VIEW(GuiText.RATING_CATEGORY_EXTERIOR_VIEW, Material.NETHER_STAR),
+    CREATIVITY(GuiText.RATING_CATEGORY_CREATIVITY, Material.COMMAND_BLOCK, true);
 
-    private final String name;
+    private final GuiText guiText;
     private final Material material;
     private final boolean isLastOne;
 
-    public RatingCategory(String name, Material material, boolean isLastOne) {
-        this.name = name;
+    RatingCategory(GuiText guiText, Material material, boolean isLastOne) {
+        this.guiText = guiText;
         this.material = material;
         this.isLastOne = isLastOne;
     }
 
-    public RatingCategory(String name, Material material) {
-        this(name, material, false);
+    RatingCategory(GuiText guiText, Material material) {
+        this(guiText, material, false);
     }
 }
