@@ -29,7 +29,6 @@ public class ConfigService {
         boolean hasFileChanges = false;
 
         // TODO Config
-        this.yamlConfiguration.set("config", "");
         // Messages
         for (Message message : Message.values()) {
             if (!(this.file.exists()) || this.yamlConfiguration.getString("messages." + message.name().toLowerCase()) == null) {
