@@ -30,6 +30,9 @@ public class GuiTextService {
             if (!(this.file.exists()) || this.yamlConfiguration.getString(text.name().toLowerCase()) == null) {
                 this.yamlConfiguration.set(text.name(), text.getDefaultText());
                 hasFileChanges = true;
+                // set Text's text to his default text and skip the next line, because by new mess yamlConfiguration.getString is null
+                text.setText(this.translateColorCodes(text.getDefaultText()));
+                continue;
             }
             text.setText(this.translateColorCodes(this.yamlConfiguration.getString(text.name().toLowerCase())));
         }
@@ -47,6 +50,6 @@ public class GuiTextService {
     }
 
     private String translateColorCodes(String input) {
-        return ChatColor.translateAlternateColorCodes('&', input);
+        return input == null ? null : ChatColor.translateAlternateColorCodes('&', input);
     }
 }
