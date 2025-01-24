@@ -28,8 +28,8 @@ public class ConfigService {
         this.yamlConfiguration = YamlConfiguration.loadConfiguration(this.file);
         boolean hasFileChanges = false;
 
-        //Config
-        this.yamlConfiguration.set("config.config", "Placeholder");
+        // TODO Config
+        this.yamlConfiguration.set("config", "");
         // Messages
         for (Message message : Message.values()) {
             if (!(this.file.exists()) || this.yamlConfiguration.getString("messages." + message.name().toLowerCase()) == null) {
