@@ -3,6 +3,7 @@ package de.jonahd345.simpleplotrating.gui;
 import com.plotsquared.core.plot.Plot;
 import de.jonahd345.simpleplotrating.SimplePlotRating;
 import de.jonahd345.simpleplotrating.model.GuiText;
+import de.jonahd345.simpleplotrating.model.Message;
 import de.jonahd345.simpleplotrating.util.StringUtil;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
@@ -49,7 +50,7 @@ public class RatingSummaryGui {
                 .asGuiItem(event -> {
                     this.plugin.getPlotRatingManager().setPlotRating(this.plot, this.rating, ratingMaterials, this.player);
                     this.gui.close(this.player);
-                    this.player.sendMessage("" + this.rating);
+                    this.player.sendMessage(StringUtil.replacePlaceholder(Message.getMessageWithPrefix(Message.RATING_SET), Map.of("%plot_owner%", Bukkit.getOfflinePlayer(this.plot.getOwner()).getName(), "%rating%", String.valueOf(this.rating))));
                 }));
 
         this.gui.getFiller().fill(ItemBuilder.from(Material.BLACK_STAINED_GLASS_PANE).name(Component.text("")).asGuiItem());
