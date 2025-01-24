@@ -1,6 +1,7 @@
 package de.jonahd345.simpleplotrating.model;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 public enum Message {
@@ -14,8 +15,19 @@ public enum Message {
     RATING_SET("&7You have rated this plot from &a%plot_owner% &7with &a%rating%&7/&a25 &7points!"),;
 
     private final String defaultMessage;
+    @Setter
+    private String message;
 
     Message(String defaultMessage) {
         this.defaultMessage = defaultMessage;
+    }
+
+    Message(String defaultMessage, String message) {
+        this.defaultMessage = defaultMessage;
+        this.message = message;
+    }
+
+    public static String getMessageWithPrefix(Message message) {
+        return PREFIX.getMessage() + message.getMessage();
     }
 }
