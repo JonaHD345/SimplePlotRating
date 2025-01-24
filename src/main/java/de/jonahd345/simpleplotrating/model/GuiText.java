@@ -20,7 +20,7 @@ public enum GuiText {
     RATING_GO_TO_SUMMARY_ITEM("&7Complete rating"),
     RATING_SUMMARY_TITLE("&Plot rating summary (&a%rating%&7/&a25&7)"),
     RATING_SUMMARY_SKULL("&2%plot_owner%"),
-    RATING_SUMMARY_COMPLETE("&aComplete rating");
+    RATING_SUMMARY_COMPLETE("&7Set rating");
 
     private final String defaultText;
     @Setter
