@@ -39,6 +39,16 @@ public final class SimplePlotRating extends JavaPlugin {
        this.plotRatingManager = new PlotRatingManager();
 
        this.init();
+
+       getLogger().info("\n   _____ _                 _      _____  _       _   _____       _   _             \n" +
+               "  / ____(_)               | |    |  __ \\| |     | | |  __ \\     | | (_)            \n" +
+               " | (___  _ _ __ ___  _ __ | | ___| |__) | | ___ | |_| |__) |__ _| |_ _ _ __   __ _ \n" +
+               "  \\___ \\| | '_ ` _ \\| '_ \\| |/ _ \\  ___/| |/ _ \\| __|  _  // _` | __| | '_ \\ / _` |\n" +
+               "  ____) | | | | | | | |_) | |  __/ |    | | (_) | |_| | \\ \\ (_| | |_| | | | | (_| |\n" +
+               " |_____/|_|_| |_| |_| .__/|_|\\___|_|    |_|\\___/ \\__|_|  \\_\\__,_|\\__|_|_| |_|\\__, |\n" +
+               "                    | |                                                       __/ |\n" +
+               "                    |_|                                                      |___/ \n\n" +
+               "v" + getDescription().getVersion() + " by JonaHD345 (https://jonahd345.de) has been enabled!");
     }
 
     @Override
