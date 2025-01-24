@@ -6,8 +6,8 @@ import lombok.Setter;
 @Getter
 public enum GuiText {
     // v1.0
-    PREFIX("&a&lSIMPLEPLOTRATING &7» "),
-    RATING_TITLE("&7Plot rating"),
+    PREFIX("&a&lSIMPLEPLOTRATING &8» "),
+    RATING_TITLE("&8Plot rating"),
     RATING_CATEGORY_CELLAR("&7Cellar"),
     RATING_CATEGORY_INTERIOR_DESIGN("&7Interior design"),
     RATING_CATEGORY_GARDEN("&7Garden"),
@@ -16,9 +16,9 @@ public enum GuiText {
     RATING_RATING_ITEM("&fRating: &a%rating%&7/&a5"),
     RATING_CLOSE_ITEM("&cClose"),
     RATING_SKIP_ITEM("&7Skip this category"),
-    RATING_NEXT_ITEM("&7Next category"),
+    RATING_NEXT_ITEM("&aNext category"),
     RATING_GO_TO_SUMMARY_ITEM("&7Complete rating"),
-    RATING_SUMMARY_TITLE("&7Plot rating summary (&a%rating%&7/&a25&7)"),
+    RATING_SUMMARY_TITLE("&8Plot rating summary (&a%rating%&7/&a25&7)"),
     RATING_SUMMARY_SKULL("&2%plot_owner%"),
     RATING_SUMMARY_COMPLETE_ITEM("&7Set rating");
 
