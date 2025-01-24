@@ -30,6 +30,9 @@ public class MessageService {
             if (!(this.file.exists()) || this.yamlConfiguration.getString(message.name().toLowerCase()) == null) {
                 this.yamlConfiguration.set(message.name(), message.getDefaultMessage());
                 hasFileChanges = true;
+                // set Message's message to his default message and skip the next line, because by new mess yamlConfiguration.getString is null
+                message.setMessage(this.translateColorCodes(message.getDefaultMessage()));
+                continue;
             }
             message.setMessage(this.translateColorCodes(this.yamlConfiguration.getString(message.name().toLowerCase())));
         }
@@ -47,6 +50,6 @@ public class MessageService {
     }
 
     private String translateColorCodes(String input) {
-        return ChatColor.translateAlternateColorCodes('&', input);
+        return input == null ? null : ChatColor.translateAlternateColorCodes('&', input);
     }
 }
