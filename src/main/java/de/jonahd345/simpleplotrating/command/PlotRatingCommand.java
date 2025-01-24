@@ -21,13 +21,13 @@ public class PlotRatingCommand implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String s, @NotNull String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(this.plugin.getMessageService().getMessageWithPrefix(Message.NO_PLAYER));
+            sender.sendMessage(Message.getMessageWithPrefix(Message.NO_PLAYER));
             return true;
         }
         Player player = (Player) sender;
 
         if(!(player.hasPermission("simpleplotrating.command.plotrating"))) {
-            player.sendMessage(this.plugin.getMessageService().getMessageWithPrefix(Message.NO_PERMISSION));
+            player.sendMessage(Message.getMessageWithPrefix(Message.NO_PERMISSION));
             return true;
         }
         PlotPlayer<?> plotPlayer = this.plugin.getPlotRatingManager().getPlotApi().wrapPlayer(player.getUniqueId());
@@ -36,15 +36,15 @@ public class PlotRatingCommand implements CommandExecutor {
             Plot plot = plotPlayer.getCurrentPlot();
 
             if (plot == null) {
-                player.sendMessage(this.plugin.getMessageService().getMessageWithPrefix(Message.NO_PLOT));
+                player.sendMessage(Message.getMessageWithPrefix(Message.NO_PLOT));
                 return true;
             }
             if (!plot.hasOwner()) {
-                player.sendMessage(this.plugin.getMessageService().getMessageWithPrefix(Message.NO_OWNER));
+                player.sendMessage(Message.getMessageWithPrefix(Message.NO_OWNER));
                 return true;
             }
             new RatingGui(this.plugin, player, plot).showGui();
-            player.sendMessage(this.plugin.getMessageService().getMessageWithPrefix(Message.OPEN_GUI));
+            player.sendMessage(Message.getMessageWithPrefix(Message.OPEN_GUI));
         }
         return true;
     }
