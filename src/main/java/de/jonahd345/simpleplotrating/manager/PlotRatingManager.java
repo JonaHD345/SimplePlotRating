@@ -21,14 +21,32 @@ import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
+/**
+ * Manager class for handling plot ratings in the SimplePlotRating plugin.
+ */
 public class PlotRatingManager {
+    /**
+     * Current PlotAPI instance.
+     */
     @Getter
     private PlotAPI plotApi;
 
+    /**
+     * Constructor for PlotRatingManager.
+     * Initializes the PlotAPI instance.
+     */
     public PlotRatingManager() {
         this.plotApi = new PlotAPI();
     }
 
+    /**
+     * Sets the rating for a plot by placing blocks and a sign with the rating information.
+     *
+     * @param plot the plot to be rated
+     * @param rating the rating value
+     * @param blocks the list of materials to be placed
+     * @param player the player who is rating the plot
+     */
     public void setPlotRating(Plot plot, int rating, List<Material> blocks, Player player) {
         CompletableFuture<com.plotsquared.core.location.Location> future = new CompletableFuture<>();
 
@@ -56,6 +74,12 @@ public class PlotRatingManager {
         }
     }
 
+    /**
+     * Calculates the list of materials to be used for the rating based on the rating value.
+     *
+     * @param rating the rating value
+     * @return the list of materials
+     */
     public List<Material> calculateBlocks(int rating) {
         List<Material> result = new ArrayList<>();
         double remainingRating = rating;
@@ -69,6 +93,13 @@ public class PlotRatingManager {
         return result;
     }
 
+    /**
+     * Places a sign with the rating information at the specified location.
+     *
+     * @param blockLocation the location to place the sign
+     * @param rating the rating value
+     * @param player the player who is rating the plot
+     */
     private void placeRatingSign(Location blockLocation, int rating, Player player) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
         String date = LocalDate.now().format(formatter);
@@ -92,6 +123,11 @@ public class PlotRatingManager {
         }
     }
 
+    /**
+     * Sorts the list of materials, ensuring that the unique material is placed in the middle.
+     *
+     * @param materials the list of materials to be sorted
+     */
     private void sortMaterialList(List<Material> materials) {
         Map<Material, Integer> materialCount = new HashMap<>();
         Material uniqueMaterial = null;
@@ -112,6 +148,15 @@ public class PlotRatingManager {
         materials.add(1, uniqueMaterial);
     }
 
+    /**
+     * Replaces placeholders in the sign text with actual values.
+     *
+     * @param text the text with placeholders
+     * @param rating the rating value
+     * @param player the player who is rating the plot
+     * @param date the current date
+     * @return the text with placeholders replaced
+     */
     private String replaceSignPlaceholder(String text, int rating, Player player, String date) {
         return StringUtil.replacePlaceholder(text, Map.of("%rating%", String.valueOf(rating), "%rated_player%", player.getName(),
                 "%date_day%", date.split("\\.")[0], "%date_month%", date.split("\\.")[1], "%date_year%", date.split("\\.")[2]));
