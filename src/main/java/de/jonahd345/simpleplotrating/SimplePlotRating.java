@@ -3,6 +3,7 @@ package de.jonahd345.simpleplotrating;
 import de.jonahd345.simpleplotrating.command.PlotRatingCommand;
 import de.jonahd345.simpleplotrating.manager.PlotRatingManager;
 import de.jonahd345.simpleplotrating.model.RatingCategory;
+import de.jonahd345.simpleplotrating.service.MessageService;
 import de.jonahd345.simpleplotrating.util.Metrics;
 import lombok.Getter;
 import org.bukkit.Material;
@@ -13,6 +14,9 @@ import java.util.List;
 
 public final class SimplePlotRating extends JavaPlugin {
     @Getter
+    private MessageService messageService;
+
+    @Getter
     private PlotRatingManager plotRatingManager;
 
     @Getter
@@ -21,6 +25,9 @@ public final class SimplePlotRating extends JavaPlugin {
     @Override
     public void onEnable() {
        Metrics metrics = new Metrics(this, 24480);
+
+       this.messageService = new MessageService(this);
+       this.messageService.loadMessages();
 
        this.plotRatingManager = new PlotRatingManager();
 
