@@ -26,7 +26,7 @@ public class PlotRatingCommand implements CommandExecutor {
         }
         Player player = (Player) sender;
 
-        if(!(player.hasPermission("simpleplotrating.command.plotrating"))) {
+        if(!(player.hasPermission("simpleplotrating.command.plotrating") || player.hasPermission("simpleplotrating.admin"))) {
             player.sendMessage(Message.getMessageWithPrefix(Message.NO_PERMISSION));
             return true;
         }
