@@ -28,7 +28,7 @@ public class MessageService {
 
         for (Message message : Message.values()) {
             if (!(this.file.exists()) || this.yamlConfiguration.getString(message.name().toLowerCase()) == null) {
-                this.yamlConfiguration.set(message.name(), message.getDefaultMessage());
+                this.yamlConfiguration.set(message.name().toLowerCase(), message.getDefaultMessage());
                 hasFileChanges = true;
                 // set Message's message to his default message and skip the next line, because by new mess yamlConfiguration.getString is null
                 message.setMessage(this.translateColorCodes(message.getDefaultMessage()));

@@ -28,7 +28,7 @@ public class GuiTextService {
 
         for (GuiText text : GuiText.values()) {
             if (!(this.file.exists()) || this.yamlConfiguration.getString(text.name().toLowerCase()) == null) {
-                this.yamlConfiguration.set(text.name(), text.getDefaultText());
+                this.yamlConfiguration.set(text.name().toLowerCase(), text.getDefaultText());
                 hasFileChanges = true;
                 // set Text's text to his default text and skip the next line, because by new mess yamlConfiguration.getString is null
                 text.setText(this.translateColorCodes(text.getDefaultText()));
