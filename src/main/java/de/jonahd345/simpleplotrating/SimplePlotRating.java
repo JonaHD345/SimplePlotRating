@@ -19,6 +19,12 @@ public final class SimplePlotRating extends JavaPlugin {
 
     @Override
     public void onEnable() {
+       if (getServer().getPluginManager().getPlugin("PlotSquared") == null) {
+           getLogger().severe("PlotSquared is not installed! This plugin is required for SimplePlotRating to work!");
+           getServer().getPluginManager().disablePlugin(this);
+           return;
+       }
+
        Metrics metrics = new Metrics(this, 24480);
 
        this.configService = new ConfigService(this);
