@@ -3,3 +3,24 @@ version: '1.0'
 main: de.jonahd345.simpleplotrating.SimplePlotRating
 api-version: '1.21'
 authors: [ JonaHD345 ]
+website: https://jonahd345.de
+depend:
+  - PlotSquared
+loadbefore:
+  - PlotSquared
+
+commands:
+  plotrating:
+    permission: simpleplotrating.command.plotrating
+    aliases:
+      - pr
+      - prate
+      - prating
+      - plotrating
+  plotratingadmin:
+    permission: simpleplotrating.command.plotratingadmin
+    aliases:
+      - pra
+      - prateadmin
+      - pratingadmin
+      - plotratingadmin
