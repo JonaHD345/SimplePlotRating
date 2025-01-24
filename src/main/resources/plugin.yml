@@ -17,3 +17,10 @@ commands:
       - prate
       - prating
       - plotrating
+  plotratingadmin:
+    permission: simpleplotrating.command.plotratingadmin
+    aliases:
+      - pra
+      - prateadmin
+      - pratingadmin
+      - plotratingadmin

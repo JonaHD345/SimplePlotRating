@@ -1,5 +1,6 @@
 package de.jonahd345.simpleplotrating;
 
+import de.jonahd345.simpleplotrating.command.PlotRatingAdminCommand;
 import de.jonahd345.simpleplotrating.command.PlotRatingCommand;
 import de.jonahd345.simpleplotrating.listener.ConnectionListener;
 import de.jonahd345.simpleplotrating.manager.PlotRatingManager;
@@ -57,6 +58,7 @@ public final class SimplePlotRating extends JavaPlugin {
         pluginManager.registerEvents(new ConnectionListener(this), this);
         // Commands
         getCommand("plotrating").setExecutor(new PlotRatingCommand(this));
+        getCommand("plotratingadmin").setExecutor(new PlotRatingAdminCommand(this));
     }
 
     public static SimplePlotRating getInstance() {
