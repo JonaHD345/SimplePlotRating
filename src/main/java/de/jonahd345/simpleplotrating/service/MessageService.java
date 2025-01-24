@@ -46,6 +46,14 @@ public class MessageService {
         }
     }
 
+    public String getMessage(Message message) {
+        return this.messages.get(message);
+    }
+
+    public String getMessageWithPrefix(Message message) {
+        return this.messages.get(Message.PREFIX) + this.messages.get(message);
+    }
+
     private void saveFile() {
         try {
             this.yamlConfiguration.save(this.file);

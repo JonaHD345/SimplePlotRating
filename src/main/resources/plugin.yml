@@ -7,6 +7,7 @@ website: https://jonahd345.de
 
 commands:
   plotrating:
+    permission: simpleplotrating.command.plotrating
     aliases:
       - pr
       - prate
