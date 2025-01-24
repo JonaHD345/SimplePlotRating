@@ -5,6 +5,7 @@ import de.jonahd345.simpleplotrating.listener.ConnectionListener;
 import de.jonahd345.simpleplotrating.manager.PlotRatingManager;
 import de.jonahd345.simpleplotrating.service.GuiTextService;
 import de.jonahd345.simpleplotrating.service.MessageService;
+import de.jonahd345.simpleplotrating.service.SignTextService;
 import de.jonahd345.simpleplotrating.util.Metrics;
 import lombok.Getter;
 import org.bukkit.plugin.PluginManager;
@@ -19,6 +20,9 @@ public final class SimplePlotRating extends JavaPlugin {
     private GuiTextService guiTextService;
 
     @Getter
+    private SignTextService signTextService;
+
+    @Getter
     private PlotRatingManager plotRatingManager;
 
     @Override
@@ -29,6 +33,8 @@ public final class SimplePlotRating extends JavaPlugin {
        this.messageService.loadMessages();
        this.guiTextService = new GuiTextService(this);
        this.guiTextService.loadTexts();
+       this.signTextService = new SignTextService(this);
+       this.signTextService.loadTexts();
 
        this.plotRatingManager = new PlotRatingManager();
 
