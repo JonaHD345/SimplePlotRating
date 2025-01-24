@@ -1,6 +1,7 @@
 package de.jonahd345.simpleplotrating.model;
 
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 public enum GuiText {
@@ -22,8 +23,19 @@ public enum GuiText {
     RATING_SUMMARY_COMPLETE("&aComplete rating");
 
     private final String defaultText;
+    @Setter
+    private String text;
 
     GuiText(String defaultText) {
         this.defaultText = defaultText;
+    }
+
+    GuiText(String defaultText, String text) {
+        this.defaultText = defaultText;
+        this.text = text;
+    }
+
+    public static String getTextWithPrefix(GuiText guiText) {
+        return PREFIX.getText() + guiText.getText();
     }
 }
