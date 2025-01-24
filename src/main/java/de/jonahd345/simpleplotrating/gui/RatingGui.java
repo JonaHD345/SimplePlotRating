@@ -2,7 +2,9 @@ package de.jonahd345.simpleplotrating.gui;
 
 import com.plotsquared.core.plot.Plot;
 import de.jonahd345.simpleplotrating.SimplePlotRating;
+import de.jonahd345.simpleplotrating.model.GuiText;
 import de.jonahd345.simpleplotrating.model.RatingCategory;
+import de.jonahd345.simpleplotrating.util.StringUtil;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
 import net.kyori.adventure.text.Component;
@@ -10,6 +12,7 @@ import org.bukkit.Material;
 import org.bukkit.entity.Player;
 
 import java.util.Arrays;
+import java.util.Map;
 
 public class RatingGui {
     private SimplePlotRating plugin;
@@ -34,22 +37,22 @@ public class RatingGui {
 
     public void showGui() {
         this.gui = Gui.gui()
-                .title(Component.text(""))
+                .title(Component.text(GuiText.getTextWithPrefix(GuiText.RATING_TITLE)))
                 .rows(6)
                 .create();
 
         this.gui.setItem(13, ItemBuilder.from(Material.BARRIER).name(Component.text("")).asGuiItem()); // Placeholder
         for (int i = 29; i < 34; i++) {
-            this.gui.setItem(i, ItemBuilder.from(Material.WHITE_STAINED_GLASS_PANE).name(Component.text(""))
+            this.gui.setItem(i, ItemBuilder.from(Material.WHITE_STAINED_GLASS_PANE).name(Component.text(StringUtil.replacePlaceholder(GuiText.RATING_RATING_ITEM.getText(), Map.of("%rating%", "0"))))
                     .asGuiItem(event -> this.setRating(event.getSlot() - 28)));
         }
-        this.gui.setItem(47, ItemBuilder.from(Material.OAK_DOOR).name(Component.text(""))
+        this.gui.setItem(47, ItemBuilder.from(Material.OAK_DOOR).name(Component.text(GuiText.RATING_CLOSE_ITEM.getText()))
                 .asGuiItem(event -> this.gui.close(player)));
-        this.gui.setItem(49, ItemBuilder.from(Material.RED_DYE).name(Component.text(""))
+        this.gui.setItem(49, ItemBuilder.from(Material.RED_DYE).name(Component.text(GuiText.RATING_SKIP_ITEM.getText()))
                 .asGuiItem(event -> {
                     this.skipCategory();
                 }));
-        this.gui.setItem(51, ItemBuilder.from(Material.ARROW).name(Component.text(""))
+        this.gui.setItem(51, ItemBuilder.from(Material.ARROW).name(Component.text(GuiText.RATING_NEXT_ITEM.getText()))
                 .asGuiItem(event -> {
                     if (this.currentRating != 0) {
                         this.nextCategory();
@@ -74,7 +77,7 @@ public class RatingGui {
         this.resetRating();
         this.gui.updateItem(13, ItemBuilder.from(this.currentCategory.getMaterial()).name(Component.text(this.currentCategory.getGuiText().getText())).asGuiItem());
         if (this.currentCategory.isLastOne()) {
-            this.gui.updateItem(51, ItemBuilder.from(Material.ARROW).name(Component.text(""))
+            this.gui.updateItem(51, ItemBuilder.from(Material.ARROW).name(Component.text(GuiText.RATING_GO_TO_SUMMARY_ITEM.getText()))
                     .asGuiItem(event -> {
                         if (this.currentRating != 0) {
                             new RatingSummaryGui(this.plugin, this.player, this.plot, this.overallRating, this.plugin.getPlotRatingManager().calculateBlocks(this.overallRating))
@@ -100,7 +103,7 @@ public class RatingGui {
             this.currentRating = rating;
             this.overallRating += rating;
             for (int i = 29; i < 29 + rating; i++) {
-                this.gui.updateItem(i, ItemBuilder.from(Material.LIME_STAINED_GLASS_PANE).name(Component.text(""))
+                this.gui.updateItem(i, ItemBuilder.from(Material.LIME_STAINED_GLASS_PANE).name(Component.text(StringUtil.replacePlaceholder(GuiText.RATING_RATING_ITEM.getText(), Map.of("%rating%", String.valueOf(rating)))))
                         .asGuiItem());
             }
         }
@@ -108,7 +111,7 @@ public class RatingGui {
 
     private void resetRating() {
         for (int i = 29; i < 34; i++) {
-            this.gui.updateItem(i, ItemBuilder.from(Material.WHITE_STAINED_GLASS_PANE).name(Component.text(""))
+            this.gui.updateItem(i, ItemBuilder.from(Material.WHITE_STAINED_GLASS_PANE).name(Component.text(StringUtil.replacePlaceholder(GuiText.RATING_RATING_ITEM.getText(), Map.of("%rating%", "0"))))
                     .asGuiItem(event -> this.setRating(event.getSlot() - 28)));
         }
     }

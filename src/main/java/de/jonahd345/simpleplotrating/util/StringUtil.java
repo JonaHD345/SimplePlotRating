@@ -1,5 +1,7 @@
 package de.jonahd345.simpleplotrating.util;
 
+import org.bukkit.ChatColor;
+
 import java.util.Map;
 
 public class StringUtil {
@@ -16,5 +18,15 @@ public class StringUtil {
             input = input.replace(placeholder, placeholders.get(placeholder));
         }
         return input;
+    }
+
+    /**
+     * Translates color codes in the input string using the '&' character as an alternate color code character.
+     *
+     * @param input the input string containing color codes
+     * @return the input string with all color codes translated to their corresponding ChatColor values
+     */
+    public static String translateColorCodes(String input) {
+        return input == null ? null : ChatColor.translateAlternateColorCodes('&', input);
     }
 }
