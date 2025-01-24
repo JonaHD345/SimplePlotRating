@@ -41,14 +41,14 @@ public class RatingGui {
                 .rows(6)
                 .create();
 
-        this.gui.setItem(13, ItemBuilder.from(Material.BARRIER).name(Component.text("")).asGuiItem()); // Placeholder
+        this.gui.setItem(13, ItemBuilder.from(Material.BEDROCK).name(Component.text("")).asGuiItem()); // Placeholder
         for (int i = 29; i < 34; i++) {
             this.gui.setItem(i, ItemBuilder.from(Material.WHITE_STAINED_GLASS_PANE).name(Component.text(StringUtil.replacePlaceholder(GuiText.RATING_RATING_ITEM.getText(), Map.of("%rating%", "0"))))
                     .asGuiItem(event -> this.setRating(event.getSlot() - 28)));
         }
-        this.gui.setItem(47, ItemBuilder.from(Material.OAK_DOOR).name(Component.text(GuiText.RATING_CLOSE_ITEM.getText()))
+        this.gui.setItem(47, ItemBuilder.from(Material.BARRIER).name(Component.text(GuiText.RATING_CLOSE_ITEM.getText()))
                 .asGuiItem(event -> this.gui.close(player)));
-        this.gui.setItem(49, ItemBuilder.from(Material.RED_DYE).name(Component.text(GuiText.RATING_SKIP_ITEM.getText()))
+        this.gui.setItem(49, ItemBuilder.from(Material.ENDER_PEARL).name(Component.text(GuiText.RATING_SKIP_ITEM.getText()))
                 .asGuiItem(event -> {
                     this.skipCategory();
                 }));
