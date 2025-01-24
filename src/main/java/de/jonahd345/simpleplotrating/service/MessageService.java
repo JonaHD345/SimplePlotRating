@@ -2,13 +2,12 @@ package de.jonahd345.simpleplotrating.service;
 
 import de.jonahd345.simpleplotrating.SimplePlotRating;
 import de.jonahd345.simpleplotrating.model.Message;
+import de.jonahd345.simpleplotrating.util.FileUtil;
 import de.jonahd345.simpleplotrating.util.StringUtil;
-import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
-import java.io.IOException;
 
 public class MessageService {
     private SimplePlotRating plugin;
@@ -38,15 +37,7 @@ public class MessageService {
             message.setMessage(StringUtil.translateColorCodes(this.yamlConfiguration.getString(message.name().toLowerCase())));
         }
         if (hasFileChanges) {
-            this.saveFile();
-        }
-    }
-
-    private void saveFile() {
-        try {
-            this.yamlConfiguration.save(this.file);
-        } catch (IOException e) {
-            e.printStackTrace();
+            FileUtil.saveFile(this.yamlConfiguration, this.file);
         }
     }
 }
