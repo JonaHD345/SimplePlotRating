@@ -18,7 +18,7 @@ public enum GuiText {
     RATING_SKIP_ITEM("&7Skip this category"),
     RATING_NEXT_ITEM("&aNext category"),
     RATING_GO_TO_SUMMARY_ITEM("&7Complete rating"),
-    RATING_SUMMARY_TITLE("&8Plot rating summary (&a%rating%&7/&a25&7)"),
+    RATING_SUMMARY_TITLE("&8Plot rating summary (&a%rating%&8/&a25&8)"),
     RATING_SUMMARY_SKULL("&2%plot_owner%"),
     RATING_SUMMARY_COMPLETE_ITEM("&7Set rating");
 
