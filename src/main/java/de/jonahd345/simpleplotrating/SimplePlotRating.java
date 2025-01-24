@@ -3,7 +3,7 @@ package de.jonahd345.simpleplotrating;
 import de.jonahd345.simpleplotrating.command.PlotRatingCommand;
 import de.jonahd345.simpleplotrating.listener.ConnectionListener;
 import de.jonahd345.simpleplotrating.manager.PlotRatingManager;
-import de.jonahd345.simpleplotrating.model.RatingCategory;
+import de.jonahd345.simpleplotrating.service.GuiTextService;
 import de.jonahd345.simpleplotrating.service.MessageService;
 import de.jonahd345.simpleplotrating.util.Metrics;
 import lombok.Getter;
@@ -18,6 +18,9 @@ public final class SimplePlotRating extends JavaPlugin {
     private MessageService messageService;
 
     @Getter
+    private GuiTextService guiTextService;
+
+    @Getter
     private PlotRatingManager plotRatingManager;
 
     @Getter
@@ -29,6 +32,8 @@ public final class SimplePlotRating extends JavaPlugin {
 
        this.messageService = new MessageService(this);
        this.messageService.loadMessages();
+       this.guiTextService = new GuiTextService(this);
+       this.guiTextService.loadTexts();
 
        this.plotRatingManager = new PlotRatingManager();
 
