@@ -2,6 +2,7 @@ package de.jonahd345.simpleplotrating.service;
 
 import de.jonahd345.simpleplotrating.SimplePlotRating;
 import de.jonahd345.simpleplotrating.model.GuiText;
+import de.jonahd345.simpleplotrating.util.StringUtil;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -31,10 +32,10 @@ public class GuiTextService {
                 this.yamlConfiguration.set(text.name().toLowerCase(), text.getDefaultText());
                 hasFileChanges = true;
                 // set Text's text to his default text and skip the next line, because by new mess yamlConfiguration.getString is null
-                text.setText(this.translateColorCodes(text.getDefaultText()));
+                text.setText(StringUtil.translateColorCodes(text.getDefaultText()));
                 continue;
             }
-            text.setText(this.translateColorCodes(this.yamlConfiguration.getString(text.name().toLowerCase())));
+            text.setText(StringUtil.translateColorCodes(this.yamlConfiguration.getString(text.name().toLowerCase())));
         }
         if (hasFileChanges) {
             this.saveFile();
@@ -47,9 +48,5 @@ public class GuiTextService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-
-    private String translateColorCodes(String input) {
-        return input == null ? null : ChatColor.translateAlternateColorCodes('&', input);
     }
 }
