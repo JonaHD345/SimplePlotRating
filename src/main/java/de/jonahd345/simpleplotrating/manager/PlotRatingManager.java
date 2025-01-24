@@ -3,7 +3,9 @@ package de.jonahd345.simpleplotrating.manager;
 import com.plotsquared.core.PlotAPI;
 import com.plotsquared.core.plot.Plot;
 import de.jonahd345.simpleplotrating.model.RatingMaterial;
+import de.jonahd345.simpleplotrating.model.SignText;
 import de.jonahd345.simpleplotrating.util.LocationConverter;
+import de.jonahd345.simpleplotrating.util.StringUtil;
 import lombok.Getter;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -14,10 +16,9 @@ import org.bukkit.block.Sign;
 import org.bukkit.block.sign.Side;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 import java.util.concurrent.CompletableFuture;
 
 public class PlotRatingManager {
@@ -69,6 +70,8 @@ public class PlotRatingManager {
     }
 
     private void placeRatingSign(Location blockLocation, int rating, Player player) {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        String date = LocalDate.now().format(formatter);
         World world = blockLocation.getWorld();
 
         if (world != null) {
@@ -80,10 +83,10 @@ public class PlotRatingManager {
             if (signBlock.getState() instanceof Sign) {
                 Sign sign = (Sign) signBlock.getState();
 
-                sign.getSide(Side.FRONT).setLine(0, "");
-                sign.getSide(Side.FRONT).setLine(1, "");
-                sign.getSide(Side.FRONT).setLine(2, "");
-                sign.getSide(Side.FRONT).setLine(3, "");
+                sign.getSide(Side.FRONT).setLine(0, this.replaceSignPlaceholder(SignText.RATING_LINE_1.getText(), rating, player, date));
+                sign.getSide(Side.FRONT).setLine(1, this.replaceSignPlaceholder(SignText.RATING_LINE_2.getText(), rating, player, date));
+                sign.getSide(Side.FRONT).setLine(2, this.replaceSignPlaceholder(SignText.RATING_LINE_3.getText(), rating, player, date));
+                sign.getSide(Side.FRONT).setLine(3, this.replaceSignPlaceholder(SignText.RATING_LINE_4.getText(), rating, player, date));
                 sign.update();
             }
         }
@@ -107,5 +110,9 @@ public class PlotRatingManager {
         }
         materials.remove(uniqueMaterial);
         materials.add(1, uniqueMaterial);
+    }
+
+    private String replaceSignPlaceholder(String text, int rating, Player player, String date) {
+        return StringUtil.replacePlaceholder(text, Map.of("%rating%", String.valueOf(rating), "%rated_player%", player.getName(), "%date%", date));
     }
 }
