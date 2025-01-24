@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public enum Message {
     // v1.0
-    PREFIX("&a&lSIMPLEPLOTRATING §8» "),
+    PREFIX("&a&lSIMPLEPLOTRATING &8» "),
     NO_PLAYER("&7You are not a player!"),
     NO_PERMISSION("&7No permission!"),
     NO_PLOT("&7You are not on a plot!"),
