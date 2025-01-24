@@ -7,14 +7,14 @@ import java.io.IOException;
 
 public class FileUtil {
     /**
-     * Saves the provided YamlConfiguration to the specified file.
+     * Saves the provided FileConfiguration to the specified file.
      *
-     * @param yamlConfiguration the YamlConfiguration to save
+     * @param fileConfiguration the FileConfiguration to save
      * @param file the file to save the YamlConfiguration to
      */
-    public static void saveFile(FileConfiguration yamlConfiguration, File file) {
+    public static void saveFile(FileConfiguration fileConfiguration, File file) {
         try {
-            yamlConfiguration.save(file);
+            fileConfiguration.save(file);
         } catch (IOException e) {
             e.printStackTrace();
         }
