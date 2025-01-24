@@ -113,6 +113,7 @@ public class PlotRatingManager {
     }
 
     private String replaceSignPlaceholder(String text, int rating, Player player, String date) {
-        return StringUtil.replacePlaceholder(text, Map.of("%rating%", String.valueOf(rating), "%rated_player%", player.getName(), "%date%", date));
+        return StringUtil.replacePlaceholder(text, Map.of("%rating%", String.valueOf(rating), "%rated_player%", player.getName(),
+                "%date_day%", date.split("\\.")[0], "%date_month%", date.split("\\.")[1], "%date_year%", date.split("\\.")[2]));
     }
 }
