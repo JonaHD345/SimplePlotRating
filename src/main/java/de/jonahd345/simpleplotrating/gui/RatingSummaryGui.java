@@ -15,6 +15,10 @@ import org.bukkit.entity.Player;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This class represents the GUI for displaying the rating summary of a plot.
+ * It allows players to see the final rating and confirm their rating.
+ */
 public class RatingSummaryGui {
     private SimplePlotRating plugin;
 
@@ -28,6 +32,15 @@ public class RatingSummaryGui {
 
     private List<Material> ratingMaterials;
 
+    /**
+     * Constructor to initialize the RatingSummaryGui.
+     *
+     * @param plugin the SimplePlotRating plugin instance
+     * @param player the player who rated the plot
+     * @param plot the plot being rated
+     * @param rating the final rating of the plot
+     * @param ratingMaterials the materials representing the rating
+     */
     public RatingSummaryGui(SimplePlotRating plugin, Player player, Plot plot, int rating, List<Material> ratingMaterials) {
         this.plugin = plugin;
         this.player = player;
@@ -36,6 +49,9 @@ public class RatingSummaryGui {
         this.ratingMaterials = ratingMaterials;
     }
 
+    /**
+     * Displays the rating summary GUI to the player.
+     */
     public void showGui() {
         this.gui = Gui.gui()
                 .title(Component.text(StringUtil.replacePlaceholder(GuiText.getTextWithPrefix(GuiText.RATING_SUMMARY_TITLE), Map.of("%rating%", String.valueOf(this.rating)))))

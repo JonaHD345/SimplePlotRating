@@ -14,6 +14,10 @@ import org.bukkit.entity.Player;
 import java.util.Arrays;
 import java.util.Map;
 
+/**
+ * This class represents the GUI for rating plots.
+ * It allows players to rate different categories of a plot and navigate through the rating process.
+ */
 public class RatingGui {
     private SimplePlotRating plugin;
 
@@ -29,12 +33,22 @@ public class RatingGui {
 
     private RatingCategory currentCategory;
 
+    /**
+     * Constructor to initialize the RatingGui.
+     *
+     * @param plugin the SimplePlotRating plugin instance
+     * @param player the player who is rating the plot
+     * @param plot   the plot being rated
+     */
     public RatingGui(SimplePlotRating plugin, Player player, Plot plot) {
         this.plugin = plugin;
         this.player = player;
         this.plot = plot;
     }
 
+    /**
+     * Displays the rating GUI to the player.
+     */
     public void showGui() {
         this.gui = Gui.gui()
                 .title(Component.text(GuiText.getTextWithPrefix(GuiText.RATING_TITLE)))
@@ -65,6 +79,9 @@ public class RatingGui {
         this.gui.open(this.player);
     }
 
+    /**
+     * Moves to the next rating category and updates the GUI accordingly.
+     */
     private void nextCategory() {
         RatingCategory[] ratingCategories = RatingCategory.values();
 
@@ -87,6 +104,9 @@ public class RatingGui {
         }
     }
 
+    /**
+     * Skips the current rating category and moves to the next one.
+     */
     private void skipCategory() {
         if (!this.currentCategory.isLastOne()) {
             if (this.currentRating == 0) {
@@ -98,6 +118,11 @@ public class RatingGui {
         }
     }
 
+    /**
+     * Sets the rating for the current category and updates the GUI.
+     *
+     * @param rating the rating to set
+     */
     private void setRating(int rating) {
         if (this.currentRating == 0) {
             this.currentRating = rating;
@@ -109,6 +134,9 @@ public class RatingGui {
         }
     }
 
+    /**
+     * Resets the rating items in the GUI to their default state.
+     */
     private void resetRating() {
         for (int i = 29; i < 34; i++) {
             this.gui.updateItem(i, ItemBuilder.from(Material.WHITE_STAINED_GLASS_PANE).name(Component.text(StringUtil.replacePlaceholder(GuiText.RATING_RATING_ITEM.getText(), Map.of("%rating%", "0"))))
