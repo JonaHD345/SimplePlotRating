@@ -5,7 +5,6 @@ import com.plotsquared.core.plot.Plot;
 import de.jonahd345.simpleplotrating.model.RatingMaterial;
 import de.jonahd345.simpleplotrating.util.LocationConverter;
 import lombok.Getter;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.World;
@@ -21,11 +20,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
-public class PlotManager {
+public class PlotRatingManager {
     @Getter
     private PlotAPI plotApi;
 
-    public PlotManager() {
+    public PlotRatingManager() {
         this.plotApi = new PlotAPI();
     }
 

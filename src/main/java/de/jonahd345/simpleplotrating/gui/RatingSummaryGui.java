@@ -44,7 +44,7 @@ public class RatingSummaryGui {
         }
         this.gui.setItem(6, 9, ItemBuilder.from(Material.LIME_DYE).name(Component.text(""))
                 .asGuiItem(event -> {
-                    this.plugin.getPlotManager().setPlotRating(this.plot, this.rating, ratingMaterials, this.player);
+                    this.plugin.getPlotRatingManager().setPlotRating(this.plot, this.rating, ratingMaterials, this.player);
                     this.gui.close(this.player);
                     this.player.sendMessage("" + this.rating);
                 }));

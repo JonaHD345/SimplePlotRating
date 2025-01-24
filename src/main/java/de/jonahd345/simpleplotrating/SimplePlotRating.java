@@ -1,7 +1,7 @@
 package de.jonahd345.simpleplotrating;
 
 import de.jonahd345.simpleplotrating.command.PlotRatingCommand;
-import de.jonahd345.simpleplotrating.manager.PlotManager;
+import de.jonahd345.simpleplotrating.manager.PlotRatingManager;
 import de.jonahd345.simpleplotrating.model.RatingCategory;
 import de.jonahd345.simpleplotrating.util.Metrics;
 import lombok.Getter;
@@ -13,7 +13,7 @@ import java.util.List;
 
 public final class SimplePlotRating extends JavaPlugin {
     @Getter
-    private PlotManager plotManager;
+    private PlotRatingManager plotRatingManager;
 
     @Getter
     private List<RatingCategory> ratingCategories;
@@ -22,7 +22,7 @@ public final class SimplePlotRating extends JavaPlugin {
     public void onEnable() {
        Metrics metrics = new Metrics(this, 24480);
 
-       this.plotManager = new PlotManager();
+       this.plotRatingManager = new PlotRatingManager();
 
         this.ratingCategories = List.of(new RatingCategory("", Material.IRON_DOOR),new RatingCategory("", Material.CRAFTING_TABLE),
                 new RatingCategory("", Material.DANDELION), new RatingCategory("", Material.NETHER_STAR),

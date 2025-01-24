@@ -1,7 +1,6 @@
 package de.jonahd345.simpleplotrating.gui;
 
 import com.plotsquared.core.plot.Plot;
-import com.plotsquared.core.plot.Rating;
 import de.jonahd345.simpleplotrating.SimplePlotRating;
 import de.jonahd345.simpleplotrating.model.RatingCategory;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
@@ -74,7 +73,7 @@ public class RatingGui {
             this.gui.updateItem(51, ItemBuilder.from(Material.ARROW).name(Component.text(""))
                     .asGuiItem(event -> {
                         if (this.currentRating != 0) {
-                            new RatingSummaryGui(this.plugin, this.player, this.plot, this.overallRating, this.plugin.getPlotManager().calculateBlocks(this.overallRating))
+                            new RatingSummaryGui(this.plugin, this.player, this.plot, this.overallRating, this.plugin.getPlotRatingManager().calculateBlocks(this.overallRating))
                                     .showGui();
                         }
                     }));

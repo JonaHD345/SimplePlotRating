@@ -29,7 +29,7 @@ public class PlotRatingCommand implements CommandExecutor {
             player.sendMessage("");
             return true;
         }
-        PlotPlayer<?> plotPlayer = this.plugin.getPlotManager().getPlotApi().wrapPlayer(player.getUniqueId());
+        PlotPlayer<?> plotPlayer = this.plugin.getPlotRatingManager().getPlotApi().wrapPlayer(player.getUniqueId());
 
         if (plotPlayer == null) {
             player.sendMessage("");
