@@ -1,7 +1,7 @@
 package de.jonahd345.simpleplotrating.command;
 
 import de.jonahd345.simpleplotrating.SimplePlotRating;
-import de.jonahd345.simpleplotrating.model.Message;
+import de.jonahd345.simpleplotrating.util.Message;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

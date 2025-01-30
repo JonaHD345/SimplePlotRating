@@ -1,7 +1,7 @@
 package de.jonahd345.simpleplotrating.service;
 
 import de.jonahd345.simpleplotrating.SimplePlotRating;
-import de.jonahd345.simpleplotrating.model.Message;
+import de.jonahd345.simpleplotrating.util.Message;
 import lombok.Getter;
 
 import javax.net.ssl.HttpsURLConnection;

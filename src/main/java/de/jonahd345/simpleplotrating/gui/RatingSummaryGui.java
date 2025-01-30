@@ -2,8 +2,8 @@ package de.jonahd345.simpleplotrating.gui;
 
 import com.plotsquared.core.plot.Plot;
 import de.jonahd345.simpleplotrating.SimplePlotRating;
-import de.jonahd345.simpleplotrating.model.GuiText;
-import de.jonahd345.simpleplotrating.model.Message;
+import de.jonahd345.simpleplotrating.util.GuiText;
+import de.jonahd345.simpleplotrating.util.Message;
 import de.jonahd345.simpleplotrating.util.StringUtil;
 import dev.triumphteam.gui.builder.item.ItemBuilder;
 import dev.triumphteam.gui.guis.Gui;
