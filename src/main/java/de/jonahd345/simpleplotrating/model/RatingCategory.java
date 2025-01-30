@@ -1,6 +1,6 @@
 package de.jonahd345.simpleplotrating.model;
 
-import de.jonahd345.simpleplotrating.util.GuiText;
+import de.jonahd345.simpleplotrating.config.GuiText;
 import lombok.Getter;
 import org.bukkit.Material;
 
