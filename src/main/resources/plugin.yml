@@ -1,7 +1,7 @@
 name: SimplePlotRating
 version: '1.1'
 main: de.jonahd345.simpleplotrating.SimplePlotRating
-api-version: '1.21'
+api-version: '1.17'
 authors: [ JonaHD345 ]
 website: https://jonahd345.de
 depend:
