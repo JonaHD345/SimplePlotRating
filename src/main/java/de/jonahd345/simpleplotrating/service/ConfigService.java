@@ -11,6 +11,9 @@ import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;
 
+/**
+ * Service class for handling the configuration of the SimplePlotRating plugin.
+ */
 public class ConfigService {
     private SimplePlotRating plugin;
 
@@ -18,12 +21,21 @@ public class ConfigService {
 
     private FileConfiguration yamlConfiguration;
 
+    /**
+     * Constructor for ConfigService.
+     *
+     * @param plugin the SimplePlotRating plugin instance
+     */
     public ConfigService(SimplePlotRating plugin) {
         this.plugin = plugin;
         this.file = new File("plugins/" + this.plugin.getName() + "/config.yml");
         this.yamlConfiguration = YamlConfiguration.loadConfiguration(this.file);
     }
 
+    /**
+     * Loads the configuration from the config.yml file.
+     * If the file does not exist or is missing entries, it sets default values.
+     */
     public void loadConfig() {
         this.yamlConfiguration = YamlConfiguration.loadConfiguration(this.file);
         boolean hasFileChanges = false;
