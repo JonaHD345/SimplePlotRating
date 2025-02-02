@@ -1,6 +1,7 @@
 package de.jonahd345.simpleplotrating.service;
 
 import de.jonahd345.simpleplotrating.SimplePlotRating;
+import de.jonahd345.simpleplotrating.config.Message;
 import lombok.Getter;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -29,11 +30,11 @@ public class UpdateService {
 
     public void checkForUpdate() {
         try {
-            HttpsURLConnection con = (HttpsURLConnection) new URL("https://api.spigotmc.org/legacy/update.php?resource=106888").openConnection();
+            HttpsURLConnection con = (HttpsURLConnection) new URL("https://api.spigotmc.org/legacy/update.php?resource=122131").openConnection();
             con.setRequestMethod("GET");
             this.spigotVersion = new BufferedReader(new InputStreamReader(con.getInputStream())).readLine();
         } catch (Exception e) {
-            this.plugin.getLogger().info("");
+            this.plugin.getLogger().info(Message.PREFIX.getMessage() + "Failed to check for updates on spigotmc.org: " + e.getMessage());
             return;
         }
 
@@ -41,7 +42,7 @@ public class UpdateService {
             this.updateAvailable = this.spigotIsNewer();
             if (this.updateAvailable) {
                 this.plugin.getLogger().info("The new Version from SimplePlotRating v" +
-                        this.spigotVersion + " is available at: ");
+                        this.spigotVersion + " is available at: https://www.spigotmc.org/resources/simpleplotrating.122131/");
             }
         }
     }

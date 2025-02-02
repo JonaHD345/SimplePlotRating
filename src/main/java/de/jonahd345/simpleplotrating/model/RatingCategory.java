@@ -1,7 +1,7 @@
 package de.jonahd345.simpleplotrating.model;
 
+import de.jonahd345.simpleplotrating.config.GuiText;
 import lombok.Getter;
-import lombok.Setter;
 import org.bukkit.Material;
 
 /**

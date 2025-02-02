@@ -3,7 +3,7 @@ package de.jonahd345.simpleplotrating.manager;
 import com.plotsquared.core.PlotAPI;
 import com.plotsquared.core.plot.Plot;
 import de.jonahd345.simpleplotrating.model.RatingMaterial;
-import de.jonahd345.simpleplotrating.model.SignText;
+import de.jonahd345.simpleplotrating.config.SignText;
 import de.jonahd345.simpleplotrating.util.LocationConverter;
 import de.jonahd345.simpleplotrating.util.StringUtil;
 import lombok.Getter;

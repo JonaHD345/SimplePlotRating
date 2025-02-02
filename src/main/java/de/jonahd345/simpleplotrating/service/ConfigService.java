@@ -1,9 +1,9 @@
 package de.jonahd345.simpleplotrating.service;
 
 import de.jonahd345.simpleplotrating.SimplePlotRating;
-import de.jonahd345.simpleplotrating.model.GuiText;
-import de.jonahd345.simpleplotrating.model.Message;
-import de.jonahd345.simpleplotrating.model.SignText;
+import de.jonahd345.simpleplotrating.config.GuiText;
+import de.jonahd345.simpleplotrating.config.Message;
+import de.jonahd345.simpleplotrating.config.SignText;
 import de.jonahd345.simpleplotrating.util.FileUtil;
 import de.jonahd345.simpleplotrating.util.StringUtil;
 import org.bukkit.configuration.file.FileConfiguration;

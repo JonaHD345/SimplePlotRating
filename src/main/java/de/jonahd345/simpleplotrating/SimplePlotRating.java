@@ -5,6 +5,7 @@ import de.jonahd345.simpleplotrating.command.PlotRatingCommand;
 import de.jonahd345.simpleplotrating.listener.ConnectionListener;
 import de.jonahd345.simpleplotrating.manager.PlotRatingManager;
 import de.jonahd345.simpleplotrating.service.ConfigService;
+import de.jonahd345.simpleplotrating.service.UpdateService;
 import de.jonahd345.simpleplotrating.util.Metrics;
 import lombok.Getter;
 import org.bukkit.plugin.PluginManager;
@@ -12,6 +13,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 
 public final class SimplePlotRating extends JavaPlugin {
+    @Getter
+    private UpdateService updateService;
+
     @Getter
     private ConfigService configService;
 
@@ -28,6 +32,7 @@ public final class SimplePlotRating extends JavaPlugin {
 
        Metrics metrics = new Metrics(this, 24480);
 
+       this.updateService = new UpdateService(this);
        this.configService = new ConfigService(this);
        this.configService.loadConfig();
 

@@ -1,4 +1,4 @@
-package de.jonahd345.simpleplotrating.model;
+package de.jonahd345.simpleplotrating.config;
 
 import lombok.Getter;
 import lombok.Setter;

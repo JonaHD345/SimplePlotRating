@@ -4,7 +4,7 @@ import com.plotsquared.core.player.PlotPlayer;
 import com.plotsquared.core.plot.Plot;
 import de.jonahd345.simpleplotrating.SimplePlotRating;
 import de.jonahd345.simpleplotrating.gui.RatingGui;
-import de.jonahd345.simpleplotrating.model.Message;
+import de.jonahd345.simpleplotrating.config.Message;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
