@@ -44,4 +44,14 @@ public enum SignText {
         this.defaultText = defaultText;
         this.text = text;
     }
+
+    /**
+     * Returns the text of the enum constant.
+     *
+     * @return the text of the enum
+     */
+    @Override
+    public String toString() {
+        return this.text;
+    }
 }
