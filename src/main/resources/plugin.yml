@@ -1,5 +1,5 @@
 name: SimplePlotRating
-version: '1.4'
+version: '1.5'
 main: de.jonahd345.simpleplotrating.SimplePlotRating
 api-version: '1.17'
 authors: [ JonaHD345 ]

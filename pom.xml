@@ -6,7 +6,7 @@
 
     <groupId>de.jonahd345</groupId>
     <artifactId>simpleplotrating</artifactId>
-    <version>1.4</version>
+    <version>1.5</version>
     <packaging>jar</packaging>
 
     <name>simpleplotrating</name>
