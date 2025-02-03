@@ -10,6 +10,9 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.util.Arrays;
 
+/**
+ * Service class for handling update checks for the SimplePlotRating plugin.
+ */
 public class UpdateService {
     private SimplePlotRating plugin;
 
@@ -21,6 +24,11 @@ public class UpdateService {
     @Getter
     private boolean updateAvailable;
 
+    /**
+     * Constructor for UpdateService.
+     *
+     * @param plugin the SimplePlotRating plugin instance
+     */
     public UpdateService(SimplePlotRating plugin) {
         this.plugin = plugin;
         this.pluginVersion = this.plugin.getDescription().getVersion();
@@ -28,6 +36,9 @@ public class UpdateService {
         this.checkForUpdate();
     }
 
+    /**
+     * Checks for updates by querying the Spigot MC API.
+     */
     public void checkForUpdate() {
         try {
             HttpsURLConnection con = (HttpsURLConnection) new URL("https://api.spigotmc.org/legacy/update.php?resource=122131").openConnection();
@@ -47,6 +58,11 @@ public class UpdateService {
         }
     }
 
+    /**
+     * Compares the current plugin version with the latest Spigot version.
+     *
+     * @return true if the Spigot version is newer, false otherwise
+     */
     private boolean spigotIsNewer() {
         if (this.spigotVersion != null && !this.spigotVersion.isEmpty()) {
             int[] plV = this.toReadable(this.pluginVersion);
@@ -61,6 +77,12 @@ public class UpdateService {
         }
     }
 
+    /**
+     * Converts a version string to an array of integers for comparison.
+     *
+     * @param version the version string
+     * @return an array of integers representing the version
+     */
     private int[] toReadable(String version) {
         return Arrays.stream(version.split("\\.")).mapToInt(Integer::parseInt).toArray();
     }

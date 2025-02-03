@@ -63,4 +63,14 @@ public enum GuiText {
     public static String getTextWithPrefix(GuiText guiText) {
         return PREFIX.getText() + guiText.getText();
     }
+
+    /**
+     * Returns the text of the enum constant.
+     *
+     * @return the text of the enum
+     */
+    @Override
+    public String toString() {
+        return this.text;
+    }
 }

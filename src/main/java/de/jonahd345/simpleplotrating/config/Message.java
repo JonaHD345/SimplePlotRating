@@ -57,4 +57,14 @@ public enum Message {
     public static String getMessageWithPrefix(Message message) {
         return PREFIX.getMessage() + message.getMessage();
     }
+
+    /**
+     * Returns the message of the enum constant.
+     *
+     * @return the message of the enum
+     */
+    @Override
+    public String toString() {
+        return this.message;
+    }
 }
