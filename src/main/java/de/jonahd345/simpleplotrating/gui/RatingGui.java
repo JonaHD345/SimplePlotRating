@@ -68,7 +68,9 @@ public class RatingGui {
                 }));
         this.gui.setItem(51, ItemBuilder.from(Material.ARROW).name(Component.text(GuiText.RATING_NEXT_ITEM.getText()))
                 .asGuiItem(event -> {
-                    this.nextCategory();
+                    if (this.currentRating != 0) {
+                        this.nextCategory();
+                    }
                 }));
         this.gui.getFiller().fill(ItemBuilder.from(Material.BLACK_STAINED_GLASS_PANE).name(Component.text("")).asGuiItem());
         this.gui.setDefaultClickAction(event -> event.setCancelled(true));
