@@ -1,6 +1,7 @@
 package de.jonahd345.simpleplotrating.listener;
 
 import de.jonahd345.simpleplotrating.SimplePlotRating;
+import de.jonahd345.simpleplotrating.config.Config;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -33,7 +34,7 @@ public class ConnectionListener implements Listener {
     public void onPlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
 
-        if (this.plugin.getUpdateService().isUpdateAvailable()) {
+        if (this.plugin.getUpdateService().isUpdateAvailable() && Config.UPDATE_NOTIFICATION.getValueAsBoolean()) {
             if (player.hasPermission("simpleplotrating.admin")) {
                 player.sendMessage("§7A new Version from §a§lSIMPLEPLOTRATING §7v§a" +
                         this.plugin.getUpdateService().getSpigotVersion().replace(".", "§7.§a") +

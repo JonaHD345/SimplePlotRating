@@ -1,6 +1,7 @@
 package de.jonahd345.simpleplotrating.service;
 
 import de.jonahd345.simpleplotrating.SimplePlotRating;
+import de.jonahd345.simpleplotrating.config.Config;
 import de.jonahd345.simpleplotrating.config.Message;
 import lombok.Getter;
 
@@ -51,7 +52,7 @@ public class UpdateService {
 
         if (this.spigotVersion != null && !this.spigotVersion.isEmpty()) {
             this.updateAvailable = this.spigotIsNewer();
-            if (this.updateAvailable) {
+            if (this.updateAvailable && Config.UPDATE_NOTIFICATION.getValueAsBoolean()) {
                 this.plugin.getLogger().info("The new Version from SimplePlotRating v" +
                         this.spigotVersion + " is available at: https://www.spigotmc.org/resources/simpleplotrating.122131/");
             }
