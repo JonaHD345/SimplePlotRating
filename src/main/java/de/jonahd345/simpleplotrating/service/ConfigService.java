@@ -1,6 +1,7 @@
 package de.jonahd345.simpleplotrating.service;
 
 import de.jonahd345.simpleplotrating.SimplePlotRating;
+import de.jonahd345.simpleplotrating.config.Config;
 import de.jonahd345.simpleplotrating.config.GuiText;
 import de.jonahd345.simpleplotrating.config.Message;
 import de.jonahd345.simpleplotrating.config.SignText;
@@ -40,7 +41,17 @@ public class ConfigService {
         this.yamlConfiguration = YamlConfiguration.loadConfiguration(this.file);
         boolean hasFileChanges = false;
 
-        // TODO Config
+        // Config
+        for (Config config : Config.values()) {
+            if (!(this.file.exists()) || this.yamlConfiguration.getString("config." + config.name().toLowerCase()) == null) {
+                this.yamlConfiguration.set("config." + config.name().toLowerCase(), config.getDefaultValue());
+                hasFileChanges = true;
+                // set Config's config to his default config and skip the next line, because by new mess yamlConfiguration.getString is null
+                config.setValue(config.getDefaultValue());
+                continue;
+            }
+            config.setValue(this.yamlConfiguration.getString("config." + config.name().toLowerCase()));
+        }
         // Messages
         for (Message message : Message.values()) {
             if (!(this.file.exists()) || this.yamlConfiguration.getString("messages." + message.name().toLowerCase()) == null) {
