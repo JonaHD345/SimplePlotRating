@@ -2,13 +2,10 @@ package de.jonahd345.simpleplotrating.service;
 
 import de.jonahd345.simpleplotrating.SimplePlotRating;
 import de.jonahd345.simpleplotrating.config.Config;
-import de.jonahd345.simpleplotrating.config.Message;
+import de.jonahd345.xenfororesourcemanagerapi.XenforoResourceManagerAPI;
+import de.jonahd345.xenfororesourcemanagerapi.model.Resource;
 import lombok.Getter;
 
-import javax.net.ssl.HttpsURLConnection;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
 import java.util.Arrays;
 
 /**
@@ -16,6 +13,8 @@ import java.util.Arrays;
  */
 public class UpdateService {
     private SimplePlotRating plugin;
+
+    private final XenforoResourceManagerAPI xenforoResourceManagerAPI;
 
     private String  pluginVersion;
 
@@ -32,6 +31,7 @@ public class UpdateService {
      */
     public UpdateService(SimplePlotRating plugin) {
         this.plugin = plugin;
+        this.xenforoResourceManagerAPI = new XenforoResourceManagerAPI();
         this.pluginVersion = this.plugin.getDescription().getVersion();
         this.updateAvailable = false;
         this.checkForUpdate();
@@ -41,15 +41,13 @@ public class UpdateService {
      * Checks for updates by querying the Spigot MC API.
      */
     public void checkForUpdate() {
-        try {
-            HttpsURLConnection con = (HttpsURLConnection) new URL("https://api.spigotmc.org/legacy/update.php?resource=122131").openConnection();
-            con.setRequestMethod("GET");
-            this.spigotVersion = new BufferedReader(new InputStreamReader(con.getInputStream())).readLine();
-        } catch (Exception e) {
-            this.plugin.getLogger().info(Message.PREFIX.getMessage() + "Failed to check for updates on spigotmc.org: " + e.getMessage());
-            return;
-        }
+        Resource resource = this.xenforoResourceManagerAPI.getResource(122131);
 
+        if (resource != null) {
+            this.spigotVersion = resource.getCurrentVersion();
+        } else {
+            this.spigotVersion = this.pluginVersion;
+        }
         if (this.spigotVersion != null && !this.spigotVersion.isEmpty()) {
             this.updateAvailable = this.spigotIsNewer();
             if (this.updateAvailable && Config.UPDATE_NOTIFICATION.getValueAsBoolean()) {
