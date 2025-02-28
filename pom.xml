@@ -115,5 +115,10 @@
             <artifactId>triumph-gui</artifactId>
             <version>3.1.11</version>
         </dependency>
+        <dependency>
+            <groupId>de.jonahd345</groupId>
+            <artifactId>xenfororesourcemanagerapi</artifactId>
+            <version>1.1.1</version>
+        </dependency>
     </dependencies>
 </project>
