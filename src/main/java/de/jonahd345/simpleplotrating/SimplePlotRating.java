@@ -8,11 +8,15 @@ import de.jonahd345.simpleplotrating.service.ConfigService;
 import de.jonahd345.simpleplotrating.service.UpdateService;
 import de.jonahd345.simpleplotrating.util.Metrics;
 import lombok.Getter;
+import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
 
 public final class SimplePlotRating extends JavaPlugin {
+    @Getter
+    private BukkitAudiences adventure;
+
     @Getter
     private UpdateService updateService;
 
@@ -29,6 +33,7 @@ public final class SimplePlotRating extends JavaPlugin {
            getServer().getPluginManager().disablePlugin(this);
            return;
        }
+        this.adventure = BukkitAudiences.create(this);
 
        Metrics metrics = new Metrics(this, 24480);
 
@@ -54,6 +59,10 @@ public final class SimplePlotRating extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        if (this.adventure != null) {
+            this.adventure.close();
+            this.adventure = null;
+        }
     }
 
     private void init() {
