@@ -51,7 +51,7 @@ public class PlotRatingCommand implements CommandExecutor {
             player.sendMessage(Message.getMessageWithPrefix(Message.NO_PERMISSION));
             return true;
         }
-        PlotPlayer<?> plotPlayer = this.plugin.getPlotRatingManager().getPlotApi().wrapPlayer(player.getUniqueId());
+        PlotPlayer<?> plotPlayer = this.plugin.getPlotApi().wrapPlayer(player.getUniqueId());
 
         if (plotPlayer != null) {
             Plot plot = plotPlayer.getCurrentPlot();

@@ -30,8 +30,6 @@ import java.util.concurrent.CompletableFuture;
  */
 public class PlotRatingManager {
     private SimplePlotRating plugin;
-    @Getter
-    private PlotAPI plotApi;
 
     /**
      * Constructor for PlotRatingManager.
@@ -39,7 +37,6 @@ public class PlotRatingManager {
      */
     public PlotRatingManager(SimplePlotRating plugin) {
         this.plugin = plugin;
-        this.plotApi = new PlotAPI();
     }
 
     /**

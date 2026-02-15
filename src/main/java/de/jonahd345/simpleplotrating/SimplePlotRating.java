@@ -1,5 +1,6 @@
 package de.jonahd345.simpleplotrating;
 
+import com.plotsquared.core.PlotAPI;
 import de.jonahd345.simpleplotrating.command.PlotRatingAdminCommand;
 import de.jonahd345.simpleplotrating.command.PlotRatingCommand;
 import de.jonahd345.simpleplotrating.listener.ConnectionListener;
@@ -18,6 +19,9 @@ public final class SimplePlotRating extends JavaPlugin {
     private BukkitAudiences adventure;
 
     @Getter
+    private PlotAPI plotApi;
+
+    @Getter
     private UpdateService updateService;
 
     @Getter
@@ -33,7 +37,9 @@ public final class SimplePlotRating extends JavaPlugin {
            getServer().getPluginManager().disablePlugin(this);
            return;
        }
-        this.adventure = BukkitAudiences.create(this);
+       this.adventure = BukkitAudiences.create(this);
+
+       this.plotApi = new PlotAPI();
 
        Metrics metrics = new Metrics(this, 24480);
 
