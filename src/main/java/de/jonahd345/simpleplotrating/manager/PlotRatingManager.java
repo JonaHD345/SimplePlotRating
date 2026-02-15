@@ -38,7 +38,7 @@ public class PlotRatingManager {
 
     /**
      * Sets the rating for a plot by placing blocks and a sign with the rating information.
-     *
+     * <p>
      * The Y level of the base position is aligned to the PlotSquared road height (street height).
      * The blocks/sign are then placed at the first air block above that road height.
      *
@@ -132,26 +132,43 @@ public class PlotRatingManager {
                 roadY = clampYToWorld(world, roadY);
                 base.setY(roadY);
 
-                // Locate the rating "middle" block (the center of the 3-block row).
-                Location middle = findRatingRowMiddle(base, world);
-                if (middle == null) {
-                    return; // nothing to reset
+                int x = base.getBlockX();
+                int z = base.getBlockZ();
+
+                int minY = Math.max(world.getMinHeight(), base.getBlockY());
+                int maxY = world.getMaxHeight() - 1;
+
+                // Build a set of allowed rating materials
+                Set<Material> ratingMaterials = new HashSet<>();
+                for (RatingMaterial rm : RatingMaterial.values()) {
+                    ratingMaterials.add(rm.getMaterial());
                 }
 
-                // Sign is placed NORTH of the middle block in setPlotRating()
-                BlockFace facing = BlockFace.NORTH;
-                Location signLoc = middle.clone().add(facing.getModX(), facing.getModY(), facing.getModZ());
-                Block signBlock = world.getBlockAt(signLoc);
+                // Scan from the base (roadY) upwards and remove every matching rating row we find
+                boolean foundAny = false;
+                for (int y = minY; y <= maxY; y++) {
+                    if (isRatingRowAt(world, x, y, z, ratingMaterials)) {
+                        foundAny = true;
+                        Location middle = new Location(world, x, y, z);
 
-                // Remove sign first (prevents drops/odd updates if blocks behind change)
-                if (signBlock.getState() instanceof Sign) {
-                    setTypeNoPhysics(signBlock, Material.AIR);
+                        // Sign is placed NORTH of the middle block in setPlotRating()
+                        BlockFace facing = BlockFace.NORTH;
+                        Location signLoc = middle.clone().add(facing.getModX(), facing.getModY(), facing.getModZ());
+                        Block signBlock = world.getBlockAt(signLoc);
+
+                        // Remove sign first (prevents drops/odd updates if blocks behind change)
+                        if (signBlock.getState() instanceof Sign) {
+                            setTypeNoPhysics(signBlock, Material.AIR);
+                        }
+
+                        // Remove the 3 rating blocks (left, middle, right)
+                        setTypeNoPhysics(world.getBlockAt(middle.clone().add(-1, 0, 0)), Material.AIR);
+                        setTypeNoPhysics(world.getBlockAt(middle), Material.AIR);
+                        setTypeNoPhysics(world.getBlockAt(middle.clone().add(1, 0, 0)), Material.AIR);
+
+                        // continue scanning upwards to remove all stacked ratings
+                    }
                 }
-
-                // Remove the 3 rating blocks (left, middle, right)
-                setTypeNoPhysics(world.getBlockAt(middle.clone().add(-1, 0, 0)), Material.AIR);
-                setTypeNoPhysics(world.getBlockAt(middle), Material.AIR);
-                setTypeNoPhysics(world.getBlockAt(middle.clone().add(1, 0, 0)), Material.AIR);
             });
         });
     }
@@ -209,8 +226,8 @@ public class PlotRatingManager {
      */
     private boolean isRatingRowAt(World world, int x, int y, int z, Set<Material> ratingMaterials) {
         Material left = world.getBlockAt(x - 1, y, z).getType();
-        Material mid  = world.getBlockAt(x,     y, z).getType();
-        Material right= world.getBlockAt(x + 1, y, z).getType();
+        Material mid = world.getBlockAt(x, y, z).getType();
+        Material right = world.getBlockAt(x + 1, y, z).getType();
 
         // We only treat it as our rating display if all three blocks are known rating materials
         return ratingMaterials.contains(left)
@@ -220,7 +237,7 @@ public class PlotRatingManager {
 
     /**
      * Returns the PlotSquared road (street) height as an absolute Y level.
-     *
+     * <p>
      * If the plot area is a classic/hybrid plot world, PlotSquared exposes the road height via ClassicPlotWorld.ROAD_HEIGHT.
      * Otherwise, we fall back to the provided fallbackY.
      *
@@ -302,8 +319,8 @@ public class PlotRatingManager {
      * Places a sign with the rating information at the specified location.
      *
      * @param blockLocation the location to place the sign
-     * @param rating the rating value
-     * @param player the player who is rating the plot
+     * @param rating        the rating value
+     * @param player        the player who is rating the plot
      */
     private void placeRatingSign(Location blockLocation, int rating, Player player) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
@@ -356,10 +373,10 @@ public class PlotRatingManager {
     /**
      * Replaces placeholders in the sign text with actual values.
      *
-     * @param text the text with placeholders
+     * @param text   the text with placeholders
      * @param rating the rating value
      * @param player the player who is rating the plot
-     * @param date the current date
+     * @param date   the current date
      * @return the text with placeholders replaced
      */
     private String replaceSignPlaceholder(String text, int rating, Player player, String date) {
