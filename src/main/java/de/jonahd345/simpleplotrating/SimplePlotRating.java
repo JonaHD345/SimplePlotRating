@@ -4,6 +4,7 @@ import com.plotsquared.core.PlotAPI;
 import de.jonahd345.simpleplotrating.command.PlotRatingAdminCommand;
 import de.jonahd345.simpleplotrating.command.PlotRatingCommand;
 import de.jonahd345.simpleplotrating.listener.ConnectionListener;
+import de.jonahd345.simpleplotrating.listener.PlotListener;
 import de.jonahd345.simpleplotrating.manager.PlotRatingManager;
 import de.jonahd345.simpleplotrating.service.ConfigService;
 import de.jonahd345.simpleplotrating.service.UpdateService;
@@ -76,6 +77,9 @@ public final class SimplePlotRating extends JavaPlugin {
 
         // Listeners
         pluginManager.registerEvents(new ConnectionListener(this), this);
+        // PS
+        this.plotApi.registerListener(new PlotListener(this));
+
         // Commands
         getCommand("plotrating").setExecutor(new PlotRatingCommand(this));
         getCommand("plotratingadmin").setExecutor(new PlotRatingAdminCommand(this));

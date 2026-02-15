@@ -5,7 +5,8 @@ import lombok.Setter;
 
 @Getter
 public enum Config {
-    UPDATE_NOTIFICATION(true);
+    UPDATE_NOTIFICATION(true),
+    DELETE_RATING_ON_PLOT_DELETION(false);
 
     private final Object defaultValue;
     @Setter

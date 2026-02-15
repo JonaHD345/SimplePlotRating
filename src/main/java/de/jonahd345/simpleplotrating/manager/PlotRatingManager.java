@@ -1,6 +1,5 @@
 package de.jonahd345.simpleplotrating.manager;
 
-import com.plotsquared.core.PlotAPI;
 import com.plotsquared.core.generator.ClassicPlotWorld;
 import com.plotsquared.core.plot.Plot;
 import com.plotsquared.core.plot.PlotArea;
@@ -9,7 +8,6 @@ import de.jonahd345.simpleplotrating.model.RatingMaterial;
 import de.jonahd345.simpleplotrating.config.SignText;
 import de.jonahd345.simpleplotrating.util.LocationConverter;
 import de.jonahd345.simpleplotrating.util.StringUtil;
-import lombok.Getter;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -23,7 +21,6 @@ import org.bukkit.entity.Player;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.concurrent.CompletableFuture;
 
 /**
  * Manager class for handling plot ratings in the SimplePlotRating plugin.
@@ -89,6 +86,136 @@ public class PlotRatingManager {
                 placeRatingSign(placeAt, rating, player);
             });
         });
+    }
+
+    /**
+     * Resets (removes) the visual rating of a plot by deleting the 3 rating blocks
+     * and the rating sign that were placed via {@link #setPlotRating(Plot, int, List, Player)}.
+     *
+     * <p>How the location is resolved:</p>
+     * <ul>
+     *   <li>We compute the same base position (plot home + offset).</li>
+     *   <li>We align Y to the PlotSquared road height.</li>
+     *   <li>We first try the most likely placement layer (roadY + 1).</li>
+     *   <li>If not found, we scan upwards until we find a 3-block row that matches rating materials.</li>
+     * </ul>
+     *
+     * <p>Important:</p>
+     * <ul>
+     *   <li>We do NOT block the server thread: PlotSquared home lookup uses a callback.</li>
+     *   <li>All Bukkit world edits are executed on the main thread.</li>
+     *   <li>We remove the sign first to avoid potential drops/physics when the supporting blocks disappear.</li>
+     * </ul>
+     *
+     * @param plot the plot whose rating display should be removed
+     */
+    public void resetPlotRating(Plot plot) {
+        if (plot == null) {
+            return;
+        }
+
+        plot.getDefaultHome(home -> {
+            if (home == null) {
+                return;
+            }
+
+            // Bukkit world/block edits must happen on the main thread
+            Bukkit.getScheduler().runTask(plugin, () -> {
+                Location base = LocationConverter.toBukkitLocation(home).add(6, 0, -1);
+                World world = base.getWorld();
+                if (world == null) {
+                    return;
+                }
+
+                // Align base Y to PlotSquared road (street) height
+                int roadY = getRoadHeightY(plot, base.getBlockY());
+                roadY = clampYToWorld(world, roadY);
+                base.setY(roadY);
+
+                // Locate the rating "middle" block (the center of the 3-block row).
+                Location middle = findRatingRowMiddle(base, world);
+                if (middle == null) {
+                    return; // nothing to reset
+                }
+
+                // Sign is placed NORTH of the middle block in setPlotRating()
+                BlockFace facing = BlockFace.NORTH;
+                Location signLoc = middle.clone().add(facing.getModX(), facing.getModY(), facing.getModZ());
+                Block signBlock = world.getBlockAt(signLoc);
+
+                // Remove sign first (prevents drops/odd updates if blocks behind change)
+                if (signBlock.getState() instanceof Sign) {
+                    setTypeNoPhysics(signBlock, Material.AIR);
+                }
+
+                // Remove the 3 rating blocks (left, middle, right)
+                setTypeNoPhysics(world.getBlockAt(middle.clone().add(-1, 0, 0)), Material.AIR);
+                setTypeNoPhysics(world.getBlockAt(middle), Material.AIR);
+                setTypeNoPhysics(world.getBlockAt(middle.clone().add(1, 0, 0)), Material.AIR);
+            });
+        });
+    }
+
+    /**
+     * Tries to find the center block ("middle") of the 3-block rating row.
+     *
+     * <p>First attempt: roadY + 1 (typical "first air above road" when originally placed).</p>
+     * <p>Fallback: scans upward to find a row of three blocks that are all rating materials.</p>
+     *
+     * @param baseAtRoadY base location with Y already aligned to road height
+     * @param world       the world
+     * @return location of the middle block of the rating row, or null if not found
+     */
+    private Location findRatingRowMiddle(Location baseAtRoadY, World world) {
+        // Build a set of all materials that can be used as rating blocks
+        Set<Material> ratingMaterials = new HashSet<>();
+        for (RatingMaterial rm : RatingMaterial.values()) {
+            ratingMaterials.add(rm.getMaterial());
+        }
+
+        int x = baseAtRoadY.getBlockX();
+        int z = baseAtRoadY.getBlockZ();
+
+        int minY = world.getMinHeight();
+        int maxY = world.getMaxHeight() - 1;
+
+        // 1) Most likely placement layer: one above road height
+        int candidateY = clampYToWorld(world, baseAtRoadY.getBlockY() + 1);
+        if (isRatingRowAt(world, x, candidateY, z, ratingMaterials)) {
+            return new Location(world, x, candidateY, z);
+        }
+
+        // 2) Fallback scan upwards (starting at roadY up to world max height)
+        int startY = Math.max(minY, baseAtRoadY.getBlockY());
+        for (int y = startY; y <= maxY; y++) {
+            if (isRatingRowAt(world, x, y, z, ratingMaterials)) {
+                return new Location(world, x, y, z);
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * Checks whether at (x,y,z) there is a "rating row":
+     * three blocks in a line (x-1,y,z), (x,y,z), (x+1,y,z) and all are rating materials.
+     *
+     * @param world           the world
+     * @param x               center x
+     * @param y               y
+     * @param z               z
+     * @param ratingMaterials allowed rating materials
+     * @return true if the pattern matches
+     */
+    private boolean isRatingRowAt(World world, int x, int y, int z, Set<Material> ratingMaterials) {
+        Material left = world.getBlockAt(x - 1, y, z).getType();
+        Material mid  = world.getBlockAt(x,     y, z).getType();
+        Material right= world.getBlockAt(x + 1, y, z).getType();
+
+        // We only treat it as our rating display if all three blocks are known rating materials
+        return ratingMaterials.contains(left)
+                && ratingMaterials.contains(mid)
+                && ratingMaterials.contains(right);
     }
 
     /**
