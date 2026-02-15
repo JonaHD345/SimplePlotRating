@@ -41,7 +41,7 @@ public final class SimplePlotRating extends JavaPlugin {
        this.configService = new ConfigService(this);
        this.configService.loadConfig();
 
-       this.plotRatingManager = new PlotRatingManager();
+       this.plotRatingManager = new PlotRatingManager(this);
 
        this.init();
 
